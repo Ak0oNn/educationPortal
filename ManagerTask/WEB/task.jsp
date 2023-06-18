@@ -11,11 +11,19 @@
 <head>
     <title>Title</title>
 <%@include file="head.jsp"%>
+
+  <style>
+    .btn{
+      margin: 10px 10px;
+    }
+  </style>
+
 </head>
 <body>
 <%@include file="navbar.jsp"%>
 
-  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+  <button  type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
   + Добавить задание
   </button>
 
@@ -82,7 +90,7 @@
         <td>
           <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
                   data-bs-target="#updateModal<%= t.getId()%>">
-            UPDATE
+            Детали
           </button>
 
 
@@ -94,7 +102,7 @@
                 <form action="details-task" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="updateModalLabel">
-                      Info
+                      Детали Задания
                     </h5>
                     <button type="button" class="btn-close " data-bs-dismiss="modal"
                             aria-label="Close"></button>
@@ -102,11 +110,11 @@
                   <div class="modal-body">
                     <input type="hidden" name="id" value="<%=t.getId()%>">
                     <input type="text" name="t_name" placeholder="Name"
-                           value="<%=t.getName()%>"><br>
+                           value="<%=t.getName()%>"><br><br>
                     <input type="text" name="t_description" placeholder="Name"
-                           value="<%=t.getDescription()%>"><br>
+                           value="<%=t.getDescription()%>"><br><br>
                     <input type="date" name="t_deadlineDate" placeholder="deadLineDate"
-                           value="<%=t.getDeadlineDate()%>"><br>
+                           value="<%=t.getDeadlineDate()%>"><br><br>
                     <select name="t_status">
                       <% String selected = "selected";%>
                       <option name="YES"> ДА

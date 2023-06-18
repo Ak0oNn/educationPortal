@@ -13,11 +13,11 @@ import java.io.IOException;
 public class addTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("t_name");
-        String deadlineDate = request.getParameter("t_deadlineDate");
         String description = request.getParameter("t_description");
+        String deadlineDate = request.getParameter("t_deadlineDate");
         String status = request.getParameter("t_status");
 
-        dbManager.addTask(new model(0, name, deadlineDate, description, status));
+        dbManager.addTask(new model(0, name,description,deadlineDate , status));
 
         response.sendRedirect("/");
     }
