@@ -1,6 +1,6 @@
 package Bitlab.SprintTask.Entity.Task1;
 
-public class model {
+public class Task {
     private int id;
     private String name;
     private String description;
@@ -8,10 +8,10 @@ public class model {
     private String deadlineDate;
     private String status;
 
-    public model() {
+    public Task() {
     }
 
-    public model(int id, String name, String description, String deadlineDate, String status) {
+    public Task(int id, String name, String description, String deadlineDate, String status) {
         this.id = id;
         this.name = name;
         this.description = description;

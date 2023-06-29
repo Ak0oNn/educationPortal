@@ -1,5 +1,6 @@
 package Bitlab.SprintTask.servlets;
 
+import Bitlab.SprintTask.DB.DBConnection;
 import Bitlab.SprintTask.DB.dbManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ public class deleteTaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        dbManager.deleteTask(id);
+        DBConnection.deleteTaskById(id);
         resp.sendRedirect("/");
     }
 }

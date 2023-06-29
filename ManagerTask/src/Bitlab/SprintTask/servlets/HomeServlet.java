@@ -1,7 +1,7 @@
 package Bitlab.SprintTask.servlets;
 
-import Bitlab.SprintTask.DB.dbManager;
-import Bitlab.SprintTask.Entity.Task1.model;
+import Bitlab.SprintTask.DB.DBConnection;
+import Bitlab.SprintTask.Entity.Task1.Task;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +15,7 @@ import java.util.List;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<model> tasks = dbManager.getTasks();
+        List<Task> tasks = DBConnection.getTasks();
         request.setAttribute("task", tasks);
         request.getRequestDispatcher("task.jsp").forward(request,response);
     }
