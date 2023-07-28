@@ -21,7 +21,8 @@
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Top Sales</a>
         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">New Sales</a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">By Category</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/brand">Brand</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/admin-panel">Admin Panel</a>
         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/sign-user">Sign in</a>
       </nav>
     </div>

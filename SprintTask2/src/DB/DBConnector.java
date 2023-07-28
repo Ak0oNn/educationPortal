@@ -1,5 +1,6 @@
 package DB;
 
+import model.Brand;
 import model.Item;
 import model.User;
 
@@ -45,6 +46,7 @@ public class DBConnector {
         }
         return items;
     }
+
     public static User getUser(String email){
         User user = null;
         try{

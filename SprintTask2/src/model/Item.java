@@ -5,6 +5,15 @@ public class Item {
     private String name;
     private String description;
     private double price;
+    private Brand brand;
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
 
     public Long getId() {
         return id;

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Student</title>
+  <link type="text/css" rel="stylesheet" th:href="@{'/css/bootstrap.min.css'}">
+  <script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</head>
+<body>
+<div th:insert="~{navbar}"></div>
+<div class="container py-3">
+      <table class="table table-light table-stripped">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Exam</th>
+      <th>Mark</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}"
+        th:style="${student.getMark()=='F'} ? 'color:red; font-weight: bold': ''">
+      <td th:text="${student.getId()}"></td>
+      <td th:text="${student.getName()}"></td>
+      <td th:text="${student.getSurname()}"></td>
+      <td th:text="${student.getExam()}"></td>
+      <td th:text="${student.getMark()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

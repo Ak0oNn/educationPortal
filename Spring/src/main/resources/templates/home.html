@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link type="text/css" rel="stylesheet" th:href="@{'/css/bootstrap.min.css'}">
+    <script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+    <style>
+        .container {
+            max-width: 960px;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="~{}"></div>
+<div class="container d-flex justify-content-center">
+    <h1>Electronic shop items</h1>
+</div>
+
+<div class="container py-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+        ADD ITEM +
+    </button>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div th:each="item : ${items}" class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 th:text="${item.name}" class="my-0 fw-normal"></h4>
+                </div>
+                <div class="card-body">
+                    <h1 th:text="${item.price}+'$'" class="card-title pricing-card-title"><small
+                            class="text-body-secondary fw-light"></small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li th:text="${item.description}"></li>
+                    </ul>
+                    <a th:href="${'/details/'+item.id}" type="button" class="w-100 btn btn-lg btn-outline-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add item -->
+<form action="/add-item" method="post">
+    <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">ADD ITEM</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input name="name" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input name="description" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input name="price" type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success">CREATE ITEM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
