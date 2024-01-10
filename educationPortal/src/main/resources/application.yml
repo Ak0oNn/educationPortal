@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql:///educationPortal
+    username: postgres
+    password: kenzo2015
+  flyway:
+    url: jdbc:postgresql:///educationPortal
+    user: postgres
+    password: kenzo2015
+    locations: classpath:db/migration
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+
+

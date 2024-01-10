@@ -1,0 +1,25 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div class="container-lg" layout:fragment="content">
+  <div class="container py-3">
+    <a class="btn btn-primary" href="/student">Students</a>
+    <a class="btn btn-primary" href="/teacher">Teacher</a>
+    <table class="table table-light table-stripped">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Full Name</th>
+        <th>Group</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="users : ${user}">
+        <td th:text="${users.id}"></td>
+        <td th:text="${users.firstName + ' ' + users.lastName }"></td>
+        <td th:text="${users.group.nameGroup}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</html>

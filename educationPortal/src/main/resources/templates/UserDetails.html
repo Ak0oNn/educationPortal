@@ -1,0 +1,32 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+<div class="container-lg" layout:fragment="content">
+  <h6> Данные </h6>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Full Name</label>
+    <div class="col-sm-10">
+      <H3 class="form-control" th:text="${user.firstName +' '+user.lastName}"></H3>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <H3 class="form-control" th:text="${user.email}"></H3>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Group</label>
+    <div class="col-sm-10">
+      <H3 class="form-control" th:text="${user.group}"></H3>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Role</label>
+    <div class="col-sm-10">
+      <H3 class="form-control" th:text="${user.roles}"></H3>
+    </div>
+  </div>
+</div>
+</html>
