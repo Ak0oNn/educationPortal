@@ -1,0 +1,152 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+<div class="container-lg" layout:fragment="content">
+  <div class="mb-3">
+    <h5>Состояние ответа на задание:</h5>
+    <label class="form-label" th:text="${task.status}"></label>
+  </div>
+  <div class="mb-3">
+    <h5>Выполнить до</h5>
+    <label class="form-label" th:text="${task.deadLine}"></label>
+  </div>
+  <br><br>
+  <form action="/upload" enctype="multipart/form-data" method="post">
+    <p><input type="file" name="file">
+      <input type="submit" value="Отправить"></p>
+  </form>
+
+  <h3>Комментарии:</h3>
+  <div id="commentsContent" class='border border-dark-subtle p-md-3 bg-light col-6 rounded'></div>
+  <form method="post" action="/addComment">
+    <div class="row">
+      <div class="col-4">
+        <input type="hidden" name="id" th:value="${task.getId()}"/>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Введите комментарий" name="comment"
+                    rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <button type="submit" class="btn btn-secondary float-right">Add</button>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="mt-3">
+    <div th:each="comment : ${comments}">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12">
+            <h6>
+              <span th:text="${comment.user.firstName}">Имя</span>
+              <span th:text="${comment.getUser().getLastName()}">Фамилия</span>
+            </h6>
+          </div>
+        </div>
+
+        <div th:if="${user != null}">
+          <div class="row" th:if="${comment.getUser().getEmail() == user.getEmail()}">
+            <form method="post" action="/deleteComment">
+              <input type="hidden" name="id" th:value="${comment.getId()}"/>
+              <button type="submit" class="btn btn-outline-danger">Удалить</button>
+            </form>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+            <p th:text="${comment.comment}"></p>
+            <p th:text="${comment.createComment}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mt-5">
+    <button sec:authorize="hasAnyRole('ROLE_TEACHER')" type="button" class="btn btn-danger mt-3"
+            data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
+      Delete task
+    </button>
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <form action="/deleteTask" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <input type="hidden" th:value="${task.getId()}" name="task_id">
+            <input type="hidden" th:value="${task.getItem().getId()}" name="item_id">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <button sec:authorize="hasAnyRole('ROLE_TEACHER')" type="button" class="btn btn-primary mt-3"
+            data-bs-toggle="modal" data-bs-target="#EditTask">
+      Edit Task
+    </button>
+    <div class="modal fade" id="EditTask" tabindex="-1" aria-labelledby="exampleModalLabel2"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <form action="/editTask" method="post">
+          <input type="hidden" name="item_id" th:value="${task.item.id}">
+          <input type="hidden" name="task_id" th:value="${task.id}">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">New Task</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" name="titleTask"
+                       th:value="${task.titleTask}">
+              </div>
+              <div class="mb-3">
+                <label for="Textarea1" class="form-label">Description</label>
+                <textarea id="Textarea1" class="form-control" name="description" rows="5"
+                          th:value="${task.description}"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="Textarea3" class="form-label">DeadLine</label>
+                <input id="Textarea3" class="form-control" name="deadLine" type="date"
+                       th:value="${task.deadLine}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Группа:</label>
+                <select class="form-select" name="group_id">
+                  <option selected>Выберите Группу</option>
+                  <option
+                      th:each="group : ${groups}"
+                      th:value="${group.id}"
+                      th:text="${group.nameGroup}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Edit Task</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

@@ -1,0 +1,75 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+<div class="container-lg" layout:fragment="content">
+  <button sec:authorize="hasAnyRole('ROLE_TEACHER')" type="button" class="btn btn-primary mt-3"
+          data-bs-toggle="modal" data-bs-target="#addTask">
+    +New Task
+  </button>
+  <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel2"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="/addTask" method="post">
+        <input type="hidden" name="item_id" th:value="${items.getId()}">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel2">New Task</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="input2" class="form-label">Title</label>
+              <input type="text" class="form-control" id="input2" name="titleTask">
+            </div>
+            <div class="mb-3">
+              <label for="Textarea1" class="form-label">Description</label>
+              <textarea id="Textarea1" class="form-control" name="description" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="Textarea3" class="form-label">DeadLine</label>
+              <input id="Textarea3" class="form-control" name="deadLine" type="date">
+            </div>
+            <div class="mb-3">
+              <label for="input2" class="form-label">Группа:</label>
+              <select class="form-select" name="group_id">
+                <option selected>Выберите Группу</option>
+                <option
+                    th:each="groups : ${group}"
+                    th:value="${groups.id}"
+                    th:text="${groups.nameGroup}"
+                ></option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Add Task</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <table class="table table-striped mt-3">
+    <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Status</th>
+      <th>DeadLine</th>
+      <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.getTitleTask()}"></td>
+      <td th:text="${task.getStatus()}"></td>
+      <td th:text="${task.getDeadLine()}"></td>
+      <td>
+        <a th:href="${'/taskDetails/' + task.getId()}" class="btn btn-primary">View more</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</html>

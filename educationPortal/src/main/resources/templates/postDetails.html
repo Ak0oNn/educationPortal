@@ -1,0 +1,49 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div class="container mt-3" layout:fragment="content">
+  <div class="mb-3">
+    <label for="input1" class="form-label">Title:</label>
+    <input type="text" class="form-control" id="input1" th:value="${post.postTitle}">
+  </div>
+  <div class="mb-3">
+    <label for="input2" class="form-label">date:</label>
+    <input type="text" class="form-control" id="input2" th:value="${post.createDate}">
+  </div>
+  <div class="mb-3">
+    <label for="input3" class="form-label">description:</label>
+    <input type="text" class="form-control" id="input3" th:value="${post.description}">
+  </div>
+
+  <div class="col">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#deleteAppModal">
+      Удалить заявку
+    </button>
+    <!-- Modal -->
+    <form action="/deletePost" method="post">
+      <div class="modal fade" id="deleteAppModal" tabindex="-1"
+           aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel1">Удалить пост</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" name="id" th:value="${post.id}">
+              <h4>Вы уверены?</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+              <button type="submit" class="btn btn-danger">Да</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</html>

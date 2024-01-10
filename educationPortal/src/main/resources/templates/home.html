@@ -1,0 +1,58 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<div class="container-lg" layout:fragment="content">
+  <div>
+    <button sec:authorize="hasAnyRole('ROLE_ADMIN')" type="button" class="btn btn-primary mt-3"
+            data-bs-toggle="modal" data-bs-target="#addTask">
+      +New Post
+    </button>
+    <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel2"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <form action="/addPost" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">New Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="input2" class="form-label">Title</label>
+                <input type="text" class="form-control" id="input2" name="postTitle">
+              </div>
+              <div class="mb-3">
+                <label for="Textarea1" class="form-label">Description</label>
+                <textarea id="Textarea1" class="form-control" name="description"
+                          rows="5"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="Textarea3" class="form-label">CreateDate</label>
+                <input id="Textarea3" class="form-control" name="createDate" type="date">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Add Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" th:each="posts : ${posts}">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title" th:text="${posts.postTitle}"></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${posts.createDate}"></h6>
+      <p class="card-text" th:text="${posts.description}"></p>
+      <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="${'/postDetails/' + posts.getId()}"
+         class="btn btn-primary">Details</a>
+    </div>
+  </div>
+</div>
+</html>

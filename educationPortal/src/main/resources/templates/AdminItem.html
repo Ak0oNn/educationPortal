@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div class="container-lg" layout:fragment="content">
+
+  <button type="button" class="btn  mt-3" data-bs-toggle="modal" data-bs-target="#addItemModal"
+          style="font-weight: bold">
+    + New Item
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="/addItem" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel1">New Item</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="input1" class="form-label">Name</label>
+              <input type="text" id="input1" class="form-control" name="itemName">
+            </div>
+            <div class="mb-3">
+              <label for="input2" class="form-label">Группа:</label>
+              <select class="form-select" id="input2" name="group_id">
+                <option selected>Выберите Группу</option>
+                <option
+                    th:each="group : ${group}"
+                    th:value="${group.id}"
+                    th:text="${group.nameGroup}"
+                ></option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Add Item</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-3" th:each="items : ${item}">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${items.itemName}"></h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary"
+              th:text="${items.group.nameGroup}"></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</html>

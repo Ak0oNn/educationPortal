@@ -1,32 +1,32 @@
-package kz.javaSpring.SpringTask2Spring.Models;
+package kz.bitlab.educationPortal.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import kz.javaSpring.SpringTask2Spring.enums.CoursesEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "ApplicationRequest")
+@Table(name = "roles")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationRequest {
+@Builder
+public class Role implements GrantedAuthority {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String userName;
-  private String commentary;
-  private String phone;
-  private boolean handled;
-  @Enumerated(EnumType.STRING)
-  private CoursesEnum courseName;
+  private String name;
+
+  @Override
+  public String getAuthority() {
+    return name;
+  }
 }

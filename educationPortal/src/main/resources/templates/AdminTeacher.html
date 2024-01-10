@@ -1,0 +1,123 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div class="container-lg" layout:fragment="content">
+  <div class="container py-3">
+    <table class="table table-light table-stripped">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Surname</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="users : ${user}">
+        <td th:text="${users.id}"></td>
+        <td th:text="${users.firstName}"></td>
+        <td th:text="${users.lastName}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddUser">
+    Add New Teacher
+  </button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modelAddItemFromTeacher">
+    Add Item
+  </button>
+  <form action="/addTeacher" method="post">
+    <div class="modal fade" id="modalAddUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add teacher</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label  class="form-label">First Name</label>
+              <input type="text"  class="form-control" name="firstName">
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Last Name</label>
+              <input type="text"  class="form-control" name="lastName">
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">email</label>
+              <input type="email"  class="form-control" name="email">
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">return password</label>
+              <input type="password"  class="form-control" name="re_password">
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Password</label>
+              <input type="password"  class="form-control" name="password">
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Группа:</label>
+              <select class="form-select"  name="group_id">
+                <option selected>Выберите Группу</option>
+                <option
+                    th:each="groups : ${group}"
+                    th:value="${groups.id}"
+                    th:text="${groups.nameGroup}"
+                ></option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  <form action="/addItemFromTeacher" method="post">
+    <div class="modal fade" id="modelAddItemFromTeacher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" > Add item</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="mb-3">
+              <label  class="form-label">Teacher:</label>
+              <select class="form-select"  name="teacher_id">
+                <option selected>Выберите пользователя</option>
+                <option
+                    th:each="users : ${user}"
+                    th:value="${users.id}"
+                    th:text="${users.firstName+' '+users.lastName}"
+                ></option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Предметы:</label>
+              <select class="form-select"  name="item_id">
+                <option selected>Выберите предметы</option>
+                <option
+                    th:each="item : ${items}"
+                    th:value="${item.id}"
+                    th:text="${item.itemName}"
+                ></option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+</html>

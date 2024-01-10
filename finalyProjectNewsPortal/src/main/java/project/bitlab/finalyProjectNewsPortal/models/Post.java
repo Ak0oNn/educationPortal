@@ -1,32 +1,35 @@
-package kz.javaSpring.SpringTask2Spring.Models;
+package project.bitlab.finalyProjectNewsPortal.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import kz.javaSpring.SpringTask2Spring.enums.CoursesEnum;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ApplicationRequest")
+@Table(name = "Posts")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationRequest {
+
+public class Post {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String userName;
-  private String commentary;
-  private String phone;
-  private boolean handled;
-  @Enumerated(EnumType.STRING)
-  private CoursesEnum courseName;
+  private String title;
+  private String description;
+  private LocalDate createDate;
+  @ManyToOne
+  private User author;
+
+  private byte[] picture;
+
 }

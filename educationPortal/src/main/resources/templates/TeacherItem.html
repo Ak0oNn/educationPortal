@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div class="container-lg" layout:fragment="content">
+  <div class="row mt-3" th:each="item : ${items}">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${item.getItemName()}"></h5>
+          <a class="btn btn-primary mt-2" th:href="${'/itemDetails/'+item.getId()}">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

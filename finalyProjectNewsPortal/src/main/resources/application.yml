@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/FynalyProjectNewsPortal
+    username: postgres
+    password: kenzo2015
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
